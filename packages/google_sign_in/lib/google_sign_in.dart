@@ -36,6 +36,8 @@ class GoogleSignInAccount implements GoogleIdentity {
         email = data['email'],
         id = data['id'],
         photoUrl = data['photoUrl'],
+        givenName = data['givenName'],
+        familyName = data['familyName'],
         _idToken = data['idToken'] {
     assert(id != null);
   }
@@ -50,6 +52,12 @@ class GoogleSignInAccount implements GoogleIdentity {
 
   @override
   final String displayName;
+
+  @override
+  final String givenName;
+
+  @override
+  final String familyName;
 
   @override
   final String email;
@@ -123,15 +131,20 @@ class GoogleSignInAccount implements GoogleIdentity {
         email == otherAccount.email &&
         id == otherAccount.id &&
         photoUrl == otherAccount.photoUrl &&
-        _idToken == otherAccount._idToken;
+        _idToken == otherAccount._idToken &&
+        givenName == otherAccount.givenName &&
+        familyName == otherAccount.familyName;
   }
 
   @override
-  int get hashCode => hashValues(displayName, email, id, photoUrl, _idToken);
+  int get hashCode => hashValues(
+      displayName, email, id, photoUrl, _idToken, givenName, familyName);
 
   @override
   String toString() {
     final Map<String, dynamic> data = <String, dynamic>{
+      'givenName': givenName,
+      'familyName': familyName,
       'displayName': displayName,
       'email': email,
       'id': id,
